@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Route, Switch } from "react-router-dom";
 // import Swal from "sweetalert2";
 
 import {
@@ -115,85 +116,160 @@ class Body extends Component {
   };
 
   renderPage = () => {
-    const page = this.props.page;
+    // const page = this.props.page;
     const { userEdit } = this.state;
-    const { loginStatus } = this.props;
-    console.log("Status", loginStatus);
-
-    if (page === "about") return <About />;
-
-    if (page === "login") return <Login changeStat={this.props.changeStatus} />;
-
-    if (page === "pembelian")
-      return (
-        <Pembelian
-          oldQty={this.state.oldQty}
-          detailProduct={this.state.detailProduct}
-          addPembelian={this.addPembelian}
-          goToPage={this.props.goToPage}
-          clearUserEdit={this.clearUserEdit}
-          changeStatusStok={this.changeStatusStok}
-          tambahStok={this.tambahStok}
-          addStok={this.addStok}
-        />
-      );
-
-    if (page === "labaRugi")
-      return <LabaRugi sentData={this.state.dataPembelian} />;
-
-    if (page === "AddForm")
-      return (
-        <AddForm
-          addProduct={this.addProduct}
-          selectedUser={userEdit}
-          resetUserEdit={this.clearEdit}
-          saveUser={this.updateUsers}
-          goToPage={this.props.goToPage}
-        />
-      );
-
-    if (page === "form")
-      return (
-        <Form
-          selectedUser={userEdit}
-          resetUserEdit={this.clearEdit}
-          saveUser={this.updateUsers}
-          goToPage={this.props.goToPage}
-        />
-      );
-    if (page === "productList" && loginStatus === true)
-      return (
-        <ProductList
-          datas={this.state.productList}
-          updateUser={this.setUserEdit}
-          setDiskon={this.editDiskon}
-          listProduct={this.getlistPenjualan}
-          goToPage={this.props.goToPage}
-          detailHandler={this.detailHandler}
-          addProduct={this.addProduct}
-          tambahStok={this.tambahStok}
-        />
-      );
-
-    if (page === "penjualan")
-      return <Penjualan listProduct={this.state.penjualanList} />;
-
-    if (page === "diskon")
-      return (
-        <Diskon
-          diskon={this.state.diskon}
-          updateDiskon={this.updateDiskon}
-          redirect={this.props.goToPage}
-        />
-      );
+    // const { loginStatus } = this.props;
+    // console.log("Status", loginStatus);
 
     return (
+      <Switch>
+        <Route path="/about">
+          <About />;
+        </Route>
+        <Route path="/home">
+          <Home
+            datas={this.state.productList}
+            dataBeli={this.addDataPembelian}
+            sendData={this.state.dataPembelian}
+          />
+        </Route>
+        <Route path="/productList">
+          <ProductList
+            datas={this.state.productList}
+            updateUser={this.setUserEdit}
+            setDiskon={this.editDiskon}
+            listProduct={this.getlistPenjualan}
+            goToPage={this.props.goToPage}
+            detailHandler={this.detailHandler}
+            addProduct={this.addProduct}
+            tambahStok={this.tambahStok}
+          />
+        </Route>
+        <Route path="/labaRugi">
+          <LabaRugi sentData={this.state.dataPembelian} />;
+        </Route>
+        <Route path="/addForm">
+          <AddForm
+            addProduct={this.addProduct}
+            selectedUser={userEdit}
+            resetUserEdit={this.clearEdit}
+            saveUser={this.updateUsers}
+            goToPage={this.props.goToPage}
+          />
+        </Route>
+        <Route path="/form">
+          <Form
+            selectedUser={userEdit}
+            resetUserEdit={this.clearEdit}
+            saveUser={this.updateUsers}
+            goToPage={this.props.goToPage}
+          />
+        </Route>
+        <Route path="/login">
+          <Login changeStat={this.state.changeStat} />;
+        </Route>
+        <Route path="/formEdit">
+          <Form
+            changeStat={this.state.changeStat}
+            selectedUser={userEdit}
+            resetUserEdit={this.clearEdit}
+            saveUser={this.updateUsers}
+            goToPage={this.props.goToPage}
+          />
+          <Route path="/tambahBarang">
+            <AddForm
+              addProduct={this.addProduct}
+              selectedUser={userEdit}
+              resetUserEdit={this.clearEdit}
+              saveUser={this.updateUsers}
+              goToPage={this.props.goToPage}
+            />
+          </Route>
+          <Route path="/diskon">
+            <Diskon
+              diskon={this.state.diskon}
+              updateDiskon={this.updateDiskon}
+              redirect={this.props.goToPage}
+            />
+          </Route>
+        </Route>
+      </Switch>
+    );
+
+    // if (page === "login") return <Login changeStat={this.props.changeStatus} />;
+
+    // if (page === "pembelian")
+    //   return (
+    //     <Pembelian
+    //       oldQty={this.state.oldQty}
+    //       detailProduct={this.state.detailProduct}
+    //       addPembelian={this.addPembelian}
+    //       goToPage={this.props.goToPage}
+    //       clearUserEdit={this.clearUserEdit}
+    //       changeStatusStok={this.changeStatusStok}
+    //       tambahStok={this.tambahStok}
+    //       addStok={this.addStok}
+    //     />
+    //   );
+
+    // if (page === "labaRugi")
+    //   return <LabaRugi sentData={this.state.dataPembelian} />;
+
+    // if (page === "AddForm")
+    //   return (
+    // <AddForm
+    //   addProduct={this.addProduct}
+    //   selectedUser={userEdit}
+    //   resetUserEdit={this.clearEdit}
+    //   saveUser={this.updateUsers}
+    //   goToPage={this.props.goToPage}
+    // />
+    //   );
+
+    // if (page === "form")
+    //   return (
+    // <Form
+    // selectedUser={userEdit}
+    // resetUserEdit={this.clearEdit}
+    // saveUser={this.updateUsers}
+    // goToPage={this.props.goToPage}
+    // />
+    //   );
+    // if (page === "productList" && loginStatus === true)
+    //   return (
+    //     <ProductList
+    //       datas={this.state.productList}
+    //       updateUser={this.setUserEdit}
+    //       setDiskon={this.editDiskon}
+    //       listProduct={this.getlistPenjualan}
+    //       goToPage={this.props.goToPage}
+    //       detailHandler={this.detailHandler}
+    //       addProduct={this.addProduct}
+    //       tambahStok={this.tambahStok}
+    //     />
+    //   );
+
+    // if (page === "penjualan")
+    //   return <Penjualan listProduct={this.state.penjualanList} />;
+
+    // if (page === "diskon")
+    //   return (
+    // <Diskon
+    //   diskon={this.state.diskon}
+    //   updateDiskon={this.updateDiskon}
+    //   redirect={this.props.goToPage}
+    // />
+    //   );
+
+    // {
+    /* return (
       <Home
         datas={this.state.productList}
         dataBeli={this.addDataPembelian}
         sendData={this.state.dataPembelian}
       />
-    );
+    ); */
+    // }
   };
   addDataPembelian = (data) => {
     this.setState({
@@ -231,8 +307,8 @@ class Body extends Component {
     this.setState(
       {
         productList: oldProduct,
-      },
-      () => this.props.goToPage("productList")
+      }
+      // () => this.props.goToPage("productList")
     );
   };
 
@@ -242,8 +318,8 @@ class Body extends Component {
     this.setState(
       {
         diskon: data,
-      },
-      () => this.props.goToPage("diskon")
+      }
+      // () => this.props.goToPage("diskon")
     );
   };
 
@@ -253,30 +329,30 @@ class Body extends Component {
     const filterData = oldData.filter((product) => product.id === data.id);
 
     const idx = oldData.findIndex((product) => product.id === data.id);
-    
-    let newDiskon = data.diskon <=100 ? (data.diskon > 0 ? data.diskon : 0) : 100        
 
-		oldData.splice(idx, 1, {
-			id: data.id,
-			nameProduct: data.nameProduct,
-			hargaBeli: filterData[0].hargaBeli,
-			hargaJual: filterData[0].hargaJual,
-			qty: filterData[0].qty,
-			thumbnailUrl: data.thumbnailUrl,
-			diskon: newDiskon ? newDiskon : 0,
-		});
+    let newDiskon =
+      data.diskon <= 100 ? (data.diskon > 0 ? data.diskon : 0) : 100;
 
-		this.setState(
-			{
-				productList: oldData,
-				diskon: {},
-			},
-			console.log("master : ", this.state.productList)
-		);  
+    oldData.splice(idx, 1, {
+      id: data.id,
+      nameProduct: data.nameProduct,
+      hargaBeli: filterData[0].hargaBeli,
+      hargaJual: filterData[0].hargaJual,
+      qty: filterData[0].qty,
+      thumbnailUrl: data.thumbnailUrl,
+      diskon: newDiskon ? newDiskon : 0,
+    });
+
+    this.setState(
+      {
+        productList: oldData,
+        diskon: {},
+      },
+      console.log("master : ", this.state.productList)
+    );
   };
 
-  setUserEdit = (userEdit) =>
-    this.setState({ userEdit }, () => this.props.goToPage("form"));
+  setUserEdit = (userEdit) => this.setState({ userEdit }); // () => this.props.goToPage("form"));
 
   addProduct = (inputProduct) => {
     this.setState({

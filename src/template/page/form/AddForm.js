@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./form.css";
 import Swal from "sweetalert2";
 
+import { Link } from "react-router-dom";
+
 class AddForm extends Component {
   constructor(props) {
     super(props);
@@ -143,12 +145,16 @@ class AddForm extends Component {
           </tr>
           <tr>
             <td colSpan="3" align="left">
-              <button className="buttonAddNew" onClick={this.AddNewHandler}>
-                Add New
-              </button>
-              <button className="buttonAddNew" onClick={this.cancel}>
-                Cancel
-              </button>
+              <Link to="/productList">
+                <button className="buttonAddNew" onClick={this.AddNewHandler}>
+                  Add New
+                </button>
+              </Link>
+              <Link to="/productList">
+                <button className="buttonAddNew" onClick={this.cancel}>
+                  Cancel
+                </button>
+              </Link>
             </td>
           </tr>
           <input type="hidden" value={diskon} />

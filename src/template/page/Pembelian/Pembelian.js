@@ -56,14 +56,14 @@ class Pembelian extends Component {
 
     console.log("jumlahhhhh", user);
     console.log("qtyyyy", oldQty, "tunggu qty", newQty);
-    const { goToPage } = this.props;
-    goToPage("productList");
+    // const { goToPage } = this.props;
+    // goToPage("productList");
     // }
   };
 
   cancel = () => {
     const { goToPage } = this.props;
-    goToPage("productList");
+    // goToPage("productList");
   };
 
   render() {

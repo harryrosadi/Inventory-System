@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./diskon.css";
+import { Link } from "react-router-dom";
 
 class Diskon extends Component {
   constructor(props) {
@@ -53,7 +54,9 @@ class Diskon extends Component {
                 onChange={this.setValue}
               />
             </div>
-            <button onClick={() => this.props.redirect("home")}>Edit</button>
+            <Link to="/productList">
+              <button>Edit</button>
+            </Link>
           </form>
         </div>
       </>

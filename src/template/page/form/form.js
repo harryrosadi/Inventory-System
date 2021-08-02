@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./form.css";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 class Form extends Component {
   constructor(props) {
@@ -54,6 +55,7 @@ class Form extends Component {
   render() {
     const { id, nameProduct, hargaBeli, hargaJual, thumbnailUrl } = this.state;
     return (
+      // <Link to="/formEdit">
       <table className="MyTable">
         <tbody>
           <tr>
@@ -105,16 +107,21 @@ class Form extends Component {
           </tr> */}
           <tr>
             <td colSpan="3" align="left">
-              <button className="buttonSaveEdit" onClick={this.onSaveHandler}>
-                Save Edit
-              </button>
-              <button className="buttonCancel" onClick={this.cancel}>
-                Cancel
-              </button>
+              <Link to="/productList">
+                <button className="buttonSaveEdit" onClick={this.onSaveHandler}>
+                  Save Edit
+                </button>
+              </Link>
+              <Link to="/productList">
+                <button className="buttonCancel" onClick={this.cancel}>
+                  Cancel
+                </button>
+              </Link>
             </td>
           </tr>
         </tbody>
       </table>
+      // </Link>
     );
   }
 }

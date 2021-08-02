@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Swal from "sweetalert2";
 import "./home.css";
+import { Link } from "react-router-dom";
 
 class Home extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class Home extends Component {
               </>
             )}
 
-            <div>
+            <Link>
               <Button
                 size="small"
                 color="primary"
@@ -81,7 +82,7 @@ class Home extends Component {
               >
                 Beli
               </Button>
-            </div>
+            </Link>
           </div>
         </div>
       );

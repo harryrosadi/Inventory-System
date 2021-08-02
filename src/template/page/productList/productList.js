@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./productList.css";
+import { Link } from "react-router-dom";
 
 class ProductList extends Component {
   constructor(props) {
@@ -52,24 +53,30 @@ class ProductList extends Component {
           <td>{product.qty}</td>
           <td>
             {/* <button data-id={product.id}>Detail</button> */}
-            <button
-              className="editButton"
-              onClick={() => this.editUser(product)}
-            >
-              Edit
-            </button>
-            <button
-              className="diskonButton"
-              onClick={() => this.editDiskon(product)}
-            >
-              Diskon
-            </button>
-            <button
-              className="stokButton"
-              onClick={() => this.pembelianBarang(product)}
-            >
-              Add Stock
-            </button>
+            <Link to="/formEdit">
+              <button
+                className="editButton"
+                onClick={() => this.editUser(product)}
+              >
+                Edit
+              </button>
+            </Link>
+            <Link to="/diskon">
+              <button
+                className="diskonButton"
+                onClick={() => this.editDiskon(product)}
+              >
+                Diskon
+              </button>
+            </Link>
+            <Link to="/tambahBarang">
+              <button
+                className="stokButton"
+                onClick={() => this.pembelianBarang(product)}
+              >
+                Add Stock
+              </button>
+            </Link>
           </td>
         </tr>
       );
@@ -79,12 +86,14 @@ class ProductList extends Component {
   render() {
     return (
       <>
-        <button
-          className="buttonAdd"
-          onClick={() => this.props.goToPage("AddForm")}
-        >
-          Add New Product
-        </button>
+        <Link to="/tambahBarang">
+          <button
+            className="buttonAdd"
+            // onClick={() => this.props.goToPage("AddForm")}
+          >
+            Add New Product
+          </button>
+        </Link>
         <table width="70%">
           <thead>
             <tr>
