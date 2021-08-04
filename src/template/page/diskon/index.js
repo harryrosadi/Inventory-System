@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./diskon.css";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Diskon extends Component {
   constructor(props) {
@@ -63,5 +64,13 @@ class Diskon extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  productList: state.dataReducer.product,
+});
 
-export default Diskon;
+const mapDispatchToProps = (dispatch) => ({
+  diskonProduct: (diskonBaru) =>
+    dispatch({ type: "DISKON", payload: { diskonBaru } }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Diskon);

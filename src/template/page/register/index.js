@@ -23,7 +23,9 @@ class Register extends Component {
       confirmPassword: "",
     };
   }
-  handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     const { username, password, confirmPassword } = this.state;
@@ -47,14 +49,6 @@ class Register extends Component {
     console.log("cek userlist", userList);
     return (
       <>
-        <div>
-          <h2>Daftar User</h2>
-          {userList.map((users) => (
-            <ul key={users}>
-              <li>{users.username}</li>
-            </ul>
-          ))}
-        </div>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className="paper">
@@ -130,10 +124,23 @@ class Register extends Component {
           </div>
           <Box mt={8}>{/* <Copyright /> */}</Box>
         </Container>
+        <div className="container-pembelian button-pembelian">
+          <h2 align="center" className="title-pembelian">
+            Daftar User
+          </h2>
+          {userList.map((users) => (
+            <ul className="form-container" key={users}>
+              <li className="input-container" color="white">
+                {users.username}
+              </li>
+            </ul>
+          ))}
+        </div>
       </>
     );
   }
 }
+
 const mapStateToProps = (state) => ({
   userList: state.Auth.user,
 });

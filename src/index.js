@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 // import dataReducer from "./reduxers/dataReducer";
-import AllReducers from "./reduxers";
+import AllReducers from "./reduxers"; // combine dipanggil disni
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./productList.css";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class ProductList extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class ProductList extends Component {
   };
 
   renderProductList = () => {
-    const { datas } = this.props;
+    const datas = this.props.productList;
     console.log("INI", datas);
 
     return datas.map((product, idx) => {
@@ -84,6 +85,7 @@ class ProductList extends Component {
   };
 
   render() {
+    console.log("cek id bro", this.editUser);
     return (
       <>
         <Link to="/tambahBarang">
@@ -112,4 +114,13 @@ class ProductList extends Component {
   }
 }
 
-export default ProductList;
+const mapStateToProps = (state) => ({
+  // ini untuk mengubah state dari reducer ke props
+  productList: state.dataReducer.product,
+});
+
+// const mapDispatchToProps = (dispatch) => ({
+//   doLogin: () => dispatch({ type: "LOGIN" }),
+// });
+
+export default connect(mapStateToProps)(ProductList);

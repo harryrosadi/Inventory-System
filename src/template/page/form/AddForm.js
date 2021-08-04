@@ -1,47 +1,47 @@
 import React, { Component } from "react";
 import "./form.css";
 import Swal from "sweetalert2";
-
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.selectedUser.id ? props.selectedUser.id : "",
-      nameProduct: props.selectedUser.nameProduct
-        ? props.selectedUser.nameProduct
-        : "",
-      hargaBeli: props.selectedUser.hargaBeli
-        ? props.selectedUser.hargaBeli
-        : "",
-      hargaJual: props.selectedUser.hargaJual
-        ? props.selectedUser.hargaJual
-        : "",
-      qty: props.selectedUser.qty ? props.selectedUser.qty : "",
-      thumbnailUrl: props.selectedUser.thumbnailUrl
-        ? props.selectedUser.thumbnailUrl
-        : "",
-      diskon: props.selectedUser.diskon ? props.selectedUser.diskon : 0,
+      // id: props.selectedUser.id ? props.selectedUser.id : "",
+      // nameProduct: props.selectedUser.nameProduct
+      //   ? props.selectedUser.nameProduct
+      //   : "",
+      // hargaBeli: props.selectedUser.hargaBeli
+      //   ? props.selectedUser.hargaBeli
+      //   : "",
+      // hargaJual: props.selectedUser.hargaJual
+      //   ? props.selectedUser.hargaJual
+      //   : "",
+      // qty: props.selectedUser.qty ? props.selectedUser.qty : "",
+      // thumbnailUrl: props.selectedUser.thumbnailUrl
+      //   ? props.selectedUser.thumbnailUrl
+      //   : "",
+      // diskon: props.selectedUser.diskon ? props.selectedUser.diskon : 0,
     };
   }
 
-  onSaveHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
-      this.state;
-    this.props.saveUser({
-      id,
-      nameProduct,
-      hargaBeli,
-      hargaJual,
-      qty,
-      thumbnailUrl,
-      diskon,
-    });
-  };
+  // onSaveHandler = () => {
+  //   const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
+  //     this.state;
+  //   this.props.saveUser({
+  //     id,
+  //     nameProduct,
+  //     hargaBeli,
+  //     hargaJual,
+  //     qty,
+  //     thumbnailUrl,
+  //     diskon,
+  //   });
+  // };
 
   AddNewHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl } =
       this.state;
     if (
       nameProduct === "" ||
@@ -49,26 +49,28 @@ class AddForm extends Component {
       hargaJual === "" ||
       qty === "" ||
       thumbnailUrl === ""
+      // diskon === ""
     )
       return Swal.fire("Waahhh ... ", "yang bener dong", "error");
 
-    this.props.saveUser({
-      id,
-      nameProduct,
-      hargaBeli,
-      hargaJual,
-      qty,
-      thumbnailUrl,
-      diskon,
-    });
+    let dataProduct = {
+      id: id,
+      nameProduct: nameProduct,
+      hargaBeli: hargaBeli,
+      hargaJual: hargaJual,
+      qty: qty,
+      thumbnailUrl: thumbnailUrl,
+      diskon: 0,
+    };
+    this.props.AddNewProduct(dataProduct);
 
     return Swal.fire("Naaaahhh ... ", "gitu doong bener", "success");
   };
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
-  componentWillUnmount() {
-    this.props.resetUserEdit();
-  }
+  // componentWillUnmount() {
+  //   this.props.resetUserEdit();
+  // }
 
   // cancel = () => {
   //   this.props.goToPage("productList");
@@ -77,7 +79,7 @@ class AddForm extends Component {
   render() {
     const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
       this.state;
-    console.log(this.state);
+    console.log("data tampil", this.props.AddNew);
 
     return (
       <table className="MyTable">
@@ -162,4 +164,12 @@ class AddForm extends Component {
   }
 }
 
-export default AddForm;
+const mapStateToProps = (state) => ({
+  AddNew: state.dataReducer.product,
+});
+const mapDispatchToProps = (dispatch) => ({
+  AddNewProduct: (productBaru) =>
+    dispatch({ type: "ADD", payload: { productBaru } }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddForm);

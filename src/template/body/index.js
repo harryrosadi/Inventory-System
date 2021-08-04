@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 // import Swal from "sweetalert2";
 
-import { connect } from "react-redux";
-
 import {
   Home,
   About,
@@ -33,32 +31,32 @@ class Body extends Component {
     };
   }
 
-  componentDidMount() {
-    const urlFetch = fetch(
-      "https://raw.githubusercontent.com/cahya93/JsonAPI/main/inventory.json"
-    );
-    urlFetch
-      .then((res) => {
-        if (res.status === 200) return res.json();
-      })
-      .then((resJson) => {
-        const dataArr = resJson.map((data) => {
-          return {
-            id: data.id,
-            nameProduct: data.nameProduct,
-            hargaBeli: data.hargaBeli,
-            hargaJual: data.hargaJual,
-            qty: data.qty,
-            thumbnailUrl: data.thumbnailUrl,
-            diskon: data.diskon,
-          };
-        });
-        console.log("JSONDATA:", dataArr);
-        this.setState({
-          productList: dataArr,
-        });
-      });
-  }
+  // componentDidMount() {
+  //   const urlFetch = fetch(
+  //     "https://raw.githubusercontent.com/cahya93/JsonAPI/main/inventory.json"
+  //   );
+  //   urlFetch
+  //     .then((res) => {
+  //       if (res.status === 200) return res.json();
+  //     })
+  //     .then((resJson) => {
+  //       const dataArr = resJson.map((data) => {
+  //         return {
+  //           id: data.id,
+  //           nameProduct: data.nameProduct,
+  //           hargaBeli: data.hargaBeli,
+  //           hargaJual: data.hargaJual,
+  //           qty: data.qty,
+  //           thumbnailUrl: data.thumbnailUrl,
+  //           diskon: data.diskon,
+  //         };
+  //       });
+  //       console.log("JSONDATA:", dataArr);
+  //       this.setState({
+  //         productList: dataArr,
+  //       });
+  //     });
+  // }
 
   getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);
@@ -371,38 +369,27 @@ class Body extends Component {
 
   setUserEdit = (userEdit) => this.setState({ userEdit }); // () => this.props.goToPage("form"));
 
-  addProduct = (inputProduct) => {
-    this.props.addData({
-      id: Math.max(
-        ...this.state.productList.map((product) => {
-          return product.id + 1;
-        })
-      ),
-      nameProduct: inputProduct.nameProduct,
-      hargaBeli: inputProduct.hargaBeli,
-      hargaJual: inputProduct.nameJual,
-      qty: inputProduct.qty,
-    });
-    // this.setState({
-    //   productList: [
-    //     ...this.state.productList,
-    //     {
-    //       id: Math.max(
-    //         ...this.state.productList.map((product) => {
-    //           return product.id + 1;
-    //         })
-    //       ),
-    //       nameProduct: inputProduct.nameProduct,
-    //       hargaBeli: inputProduct.hargaBeli,
-    //       hargaJual: inputProduct.nameJual,
-    //       qty: inputProduct.qty,
-    //     },
-    //   ],
-    // });
-    // this.props.goToPage("inputProduct");
-    // console.log("Input Product >>>", inputProduct);
-    // console.log("Cek Bang Boy >>>", this.state.productList);
-  };
+  // addProduct = (inputProduct) => {
+  //   this.setState({
+  //     productList: [
+  //       ...this.state.productList,
+  //       {
+  //         id: Math.max(
+  //           ...this.state.productList.map((product) => {
+  //             return product.id + 1;
+  //           })
+  //         ),
+  //         nameProduct: inputProduct.nameProduct,
+  //         hargaBeli: inputProduct.hargaBeli,
+  //         hargaJual: inputProduct.nameJual,
+  //         qty: inputProduct.qty,
+  //       },
+  //     ],
+  //   });
+  //   this.props.goToPage("inputProduct");
+  //   console.log("Input Product >>>", inputProduct);
+  //   console.log("Cek Bang Boy >>>", this.state.productList);
+  // };
 
   render() {
     return (
@@ -413,14 +400,4 @@ class Body extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    studentList: state,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  addData: () => dispatch({ type: "ADD" }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Body);
+export default Body;

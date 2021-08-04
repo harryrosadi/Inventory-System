@@ -7,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import Swal from "sweetalert2";
 import "./home.css";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Home extends Component {
   constructor(props) {
@@ -29,8 +30,9 @@ class Home extends Component {
       "Rp " + convert.join(".").split("").reverse().join("") + ",00"; //join hasil format dan ambil 3 angka
     return rupiah;
   };
+
   renderKonten = () => {
-    const datas = this.props.datas;
+    const datas = this.props.productList;
     console.log("cek data di body", datas);
     let coret = {
       textDecoration: "line-through",
@@ -90,7 +92,7 @@ class Home extends Component {
   };
 
   handlerBeli = (e) => {
-    const oldData = this.props.datas;
+    const oldData = this.props.productList;
     console.log("old data", oldData);
     const filterData = oldData.filter((product) => product.id === e);
     console.log("id item buy", filterData);
@@ -276,4 +278,14 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+  // ini untuk mengubah state dari reducer ke props
+  productList: state.dataReducer.product,
+});
+
+// const mapDispatchToProps = (dispatch) => ({
+//   doLogin: () => dispatch({ type: "LOGIN" }),
+// });
+
+export default connect(mapStateToProps)(Home);
+// export default Home;
