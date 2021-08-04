@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 // import Swal from "sweetalert2";
 
+import { connect } from "react-redux";
+
 import {
   Home,
   About,
@@ -9,7 +11,7 @@ import {
   Pembelian,
   LabaRugi,
   ProductList,
-  Penjualan,
+  Register,
   Form,
   Diskon,
 } from "../page";
@@ -139,7 +141,7 @@ class Body extends Component {
             updateUser={this.setUserEdit}
             setDiskon={this.editDiskon}
             listProduct={this.getlistPenjualan}
-            goToPage={this.props.goToPage}
+            // goToPage={this.props.goToPage}
             detailHandler={this.detailHandler}
             addProduct={this.addProduct}
             tambahStok={this.tambahStok}
@@ -154,7 +156,7 @@ class Body extends Component {
             selectedUser={userEdit}
             resetUserEdit={this.clearEdit}
             saveUser={this.updateUsers}
-            goToPage={this.props.goToPage}
+            // goToPage={this.props.goToPage}
           />
         </Route>
         <Route path="/form">
@@ -162,11 +164,14 @@ class Body extends Component {
             selectedUser={userEdit}
             resetUserEdit={this.clearEdit}
             saveUser={this.updateUsers}
-            goToPage={this.props.goToPage}
+            // goToPage={this.props.goToPage}
           />
         </Route>
         <Route path="/login">
           <Login changeStat={this.state.changeStat} />;
+        </Route>
+        <Route path="/register">
+          <Register />
         </Route>
         <Route path="/formEdit">
           <Form
@@ -174,24 +179,36 @@ class Body extends Component {
             selectedUser={userEdit}
             resetUserEdit={this.clearEdit}
             saveUser={this.updateUsers}
-            goToPage={this.props.goToPage}
+            // goToPage={this.props.goToPage}
           />
-          <Route path="/tambahBarang">
-            <AddForm
-              addProduct={this.addProduct}
-              selectedUser={userEdit}
-              resetUserEdit={this.clearEdit}
-              saveUser={this.updateUsers}
-              goToPage={this.props.goToPage}
-            />
-          </Route>
-          <Route path="/diskon">
-            <Diskon
-              diskon={this.state.diskon}
-              updateDiskon={this.updateDiskon}
-              redirect={this.props.goToPage}
-            />
-          </Route>
+        </Route>
+        <Route path="/tambahBarang">
+          <AddForm
+            addProduct={this.addProduct}
+            selectedUser={userEdit}
+            resetUserEdit={this.clearEdit}
+            saveUser={this.updateUsers}
+            // goToPage={this.props.goToPage}
+          />
+        </Route>
+        <Route path="/diskon">
+          <Diskon
+            diskon={this.state.diskon}
+            updateDiskon={this.updateDiskon}
+            // redirect={this.props.goToPage}
+          />
+        </Route>
+        <Route path="/pembelian">
+          <Pembelian
+            oldQty={this.state.oldQty}
+            detailProduct={this.state.detailProduct}
+            addPembelian={this.addPembelian}
+            // goToPage={this.props.goToPage}
+            clearUserEdit={this.clearUserEdit}
+            changeStatusStok={this.changeStatusStok}
+            tambahStok={this.tambahStok}
+            addStok={this.addStok}
+          />
         </Route>
       </Switch>
     );
@@ -294,8 +311,8 @@ class Body extends Component {
       return this.setState(
         {
           productList: oldProduct,
-        },
-        () => this.props.goToPage("productList")
+        }
+        // () => this.props.goToPage("productList")
       );
     }
     const oldProduct = this.state.productList;
@@ -355,25 +372,36 @@ class Body extends Component {
   setUserEdit = (userEdit) => this.setState({ userEdit }); // () => this.props.goToPage("form"));
 
   addProduct = (inputProduct) => {
-    this.setState({
-      productList: [
-        ...this.state.productList,
-        {
-          id: Math.max(
-            ...this.state.productList.map((product) => {
-              return product.id + 1;
-            })
-          ),
-          nameProduct: inputProduct.nameProduct,
-          hargaBeli: inputProduct.hargaBeli,
-          hargaJual: inputProduct.nameJual,
-          qty: inputProduct.qty,
-        },
-      ],
+    this.props.addData({
+      id: Math.max(
+        ...this.state.productList.map((product) => {
+          return product.id + 1;
+        })
+      ),
+      nameProduct: inputProduct.nameProduct,
+      hargaBeli: inputProduct.hargaBeli,
+      hargaJual: inputProduct.nameJual,
+      qty: inputProduct.qty,
     });
-    this.props.goToPage("inputProduct");
-    console.log("Input Product >>>", inputProduct);
-    console.log("Cek Bang Boy >>>", this.state.productList);
+    // this.setState({
+    //   productList: [
+    //     ...this.state.productList,
+    //     {
+    //       id: Math.max(
+    //         ...this.state.productList.map((product) => {
+    //           return product.id + 1;
+    //         })
+    //       ),
+    //       nameProduct: inputProduct.nameProduct,
+    //       hargaBeli: inputProduct.hargaBeli,
+    //       hargaJual: inputProduct.nameJual,
+    //       qty: inputProduct.qty,
+    //     },
+    //   ],
+    // });
+    // this.props.goToPage("inputProduct");
+    // console.log("Input Product >>>", inputProduct);
+    // console.log("Cek Bang Boy >>>", this.state.productList);
   };
 
   render() {
@@ -385,4 +413,14 @@ class Body extends Component {
   }
 }
 
-export default Body;
+const mapStateToProps = (state) => {
+  return {
+    studentList: state,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  addData: () => dispatch({ type: "ADD" }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Body);

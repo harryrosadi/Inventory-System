@@ -1,6 +1,7 @@
 import Home from "./home";
 import About from "./about";
 import Login from "./login";
+import Register from "./register";
 import ProductList from "./productList/productList";
 import Pembelian from "./Pembelian/Pembelian";
 import LabaRugi from "./LabaRugi/LabaRugi";
@@ -20,4 +21,5 @@ export {
   Form,
   Diskon,
   Add,
+  Register,
 };

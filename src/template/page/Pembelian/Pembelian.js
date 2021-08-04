@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./pembelian.css";
 class Pembelian extends Component {
   constructor(props) {
@@ -45,7 +46,6 @@ class Pembelian extends Component {
       thumbnailUrl: e.target[5].value,
       diskon: this.props.detailProduct.diskon,
     };
-    // console.log(user);
     // if (this.props.changeStatusStok) {
     // this.props.addPembelian(user);
     this.props.tambahStok();
@@ -54,6 +54,7 @@ class Pembelian extends Component {
     user.qty = parseInt(oldQty) + parseInt(newQty);
     this.props.addStok(user);
 
+    console.log("data oldqty", oldQty);
     console.log("jumlahhhhh", user);
     console.log("qtyyyy", oldQty, "tunggu qty", newQty);
     // const { goToPage } = this.props;
@@ -61,10 +62,10 @@ class Pembelian extends Component {
     // }
   };
 
-  cancel = () => {
-    const { goToPage } = this.props;
-    // goToPage("productList");
-  };
+  // cancel = () => {
+  //   const { goToPage } = this.props;
+  //   // goToPage("productList");
+  // };
 
   render() {
     const { nameProduct, hargaJual, hargaBeli, qty, id, thumbnailUrl, diskon } =
@@ -128,17 +129,20 @@ class Pembelian extends Component {
 
                 <input type="hidden" value={thumbnailUrl} />
                 <input type="hidden" value={diskon} />
-
+                {/* <Link to="/productList"> */}
                 <button className="button-pembelian" type="submit">
                   BELI BARANG
                 </button>
-                <button
-                  onClick={this.cancel}
-                  className="button-pembelian"
-                  type="submit"
-                >
-                  CANCEL
-                </button>
+                {/* </Link> */}
+                <Link to="/productList">
+                  <button
+                    onClick={this.cancel}
+                    className="button-pembelian"
+                    type="submit"
+                  >
+                    CANCEL
+                  </button>
+                </Link>
               </div>
               {/* {statusPembelian ? ( */}
               {/* <button className="button-pembelian" type="submit">

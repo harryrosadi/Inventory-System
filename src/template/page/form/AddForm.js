@@ -70,9 +70,9 @@ class AddForm extends Component {
     this.props.resetUserEdit();
   }
 
-  cancel = () => {
-    this.props.goToPage("productList");
-  };
+  // cancel = () => {
+  //   this.props.goToPage("productList");
+  // };
 
   render() {
     const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
@@ -151,9 +151,7 @@ class AddForm extends Component {
                 </button>
               </Link>
               <Link to="/productList">
-                <button className="buttonAddNew" onClick={this.cancel}>
-                  Cancel
-                </button>
+                <button className="buttonAddNew">Cancel</button>
               </Link>
             </td>
           </tr>

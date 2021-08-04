@@ -48,9 +48,9 @@ class Form extends Component {
     this.props.resetUserEdit();
   }
 
-  cancel = () => {
-    this.props.goToPage("productList");
-  };
+  // cancel = () => {
+  //   this.props.goToPage("productList");
+  // };
 
   render() {
     const { id, nameProduct, hargaBeli, hargaJual, thumbnailUrl } = this.state;

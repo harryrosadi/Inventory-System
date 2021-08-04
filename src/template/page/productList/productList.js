@@ -32,7 +32,7 @@ class ProductList extends Component {
   pembelianBarang = (e) => {
     this.props.detailHandler(e.id - 1);
     this.props.tambahStok(e.id);
-    this.props.goToPage("pembelian");
+    // this.props.goToPage("pembelian");
     console.log("crooooootttt", e.id);
     console.log("coooo", e);
   };
@@ -69,7 +69,7 @@ class ProductList extends Component {
                 Diskon
               </button>
             </Link>
-            <Link to="/tambahBarang">
+            <Link to="/pembelian">
               <button
                 className="stokButton"
                 onClick={() => this.pembelianBarang(product)}

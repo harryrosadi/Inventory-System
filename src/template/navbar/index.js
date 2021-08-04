@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Menu } from "../../component";
 import logo from "../../image/avatar11066402_1.png";
 import "./navbar.css";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 class Navbar extends Component {
@@ -18,28 +18,29 @@ class Navbar extends Component {
   };
 
   checkLogin = () => {
-    const { loginStatus, goToPage } = this.props;
+    // const { loginStatus, goToPage } = this.props;
     return (
       <Link to="/productList">
         <div
           activePage={this.checkActivePage("productList")}
-          redirect={() =>
-            loginStatus
-              ? goToPage("productList")
-              : Swal.fire(
-                  "Kijang Satu ganti",
-                  "Penyusup, bukan Admin Banteng",
-                  "error"
-                )
-          }
+          // redirect={() =>
+          //   loginStatus
+          //     ? goToPage("productList")
+          //     : Swal.fire(
+          //         "Kijang Satu ganti",
+          //         "Penyusup, bukan Admin Banteng",
+          //         "error"
+          //       )
+          // }
         >
           ProductList
         </div>
       </Link>
     );
   };
+
   checkLogout = () => {
-    const { loginStatus, changeStatus, goToPage } = this.props;
+    const { loginStatus, changeStatus } = this.props;
     if (loginStatus)
       return (
         <>
@@ -62,11 +63,11 @@ class Navbar extends Component {
       </Link>
     );
   };
-  redirectPage = () => {
-    this.props.goToPage("Home");
-  };
+  // redirectPage = () => {
+  //   this.props.goToPage("Home");
+  // };
   render() {
-    const { goToPage } = this.props;
+    // const { goToPage } = this.props;
     return (
       <>
         <div className="topnav">
